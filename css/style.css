@@ -9,6 +9,15 @@ html, body{
 	background-color: #0D47A1;
 }
 
+/* contenedor*/
+.contenedor{
+	position: absolute;
+    top: 0;
+    bottom: 0;
+    
+    width: 100%;
+}
+
 body a{
 	transition:0.5s all;
 	-webkit-transition:0.5s all;
@@ -19,6 +28,10 @@ body a{
 
 .background-color-saf{
     background-color: #0D47A1;
+}
+
+.background-colo-saf-secundario{
+    background-color: white;
 }
 
 /* Estilos de barra de navegación */
@@ -99,4 +112,36 @@ body a{
     font-weight: 600;   
 }
 
+.vertical-center{
+    margin-top: 25%;
+    margin-bottom: 25%;
+}
 
+.horizontal-center{
+    margin-right: 25%;
+    margin-left: 25%;
+}
+
+.pad{
+    padding-top: 16px;
+    padding-bottom: 16px;
+}
+
+.login{
+    background-color: white;
+    height: 100%;
+    margin-top: 8%;
+}
+.img-center-block {
+    display: block;
+    margin-right: 25%;
+    margin-left: 25%;
+    margin-top: 25%;
+    margin-bottom: 25%;
+}
+
+.img-login{
+    width: 460;
+    height: auto;
+    max-width: 100%;
+}

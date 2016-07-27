@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Prueba de CSS Propios con Bootstrap</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/user.css" rel="stylesheet">
+    <link href="css/hamburgers.css" rel="stylesheet">
+    <script src="js/hamburgers.js"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
+    <!-- Firebase de aplicación web -->
+      <script src="https://www.gstatic.com/firebasejs/3.2.1/firebase.js"></script>
+      <script>
+          // Initialize Firebase
+          var config = {
+              apiKey: "AIzaSyCrKmTXWf_QXoU1Qp2UBhZBTxPBBUFp0EU",
+              authDomain: "saf-backend.firebaseapp.com",
+              databaseURL: "https://saf-backend.firebaseio.com",
+              storageBucket: "saf-backend.appspot.com",
+          };
+          firebase.initializeApp(config);
+      </script>
+      
+      <script type="text/javascript">
+          
+          /**
+          * Maneja el boton signin
+          */
+          function toggleSignIn() 
+          {
+              if (firebase.auth().currentUser) {
+                  // El usuario inicia sesión en.
+                  // [START signout]
+                  firebase.auth().signOut();
+                  // [END signout]
+              } else {
+                  // Ningún usuario ha iniciado sesión.
+                  var usualogi = document.getElementById('usualogi').value;
+                  var usuapass = document.getElementById('usuapass').value;
+                  
+                  if(usualogi.length < 4) {
+                      alert('Por favor introduzca una dirección de correo eléctronico.')
+                      return;
+                  }
+                  if(usuapass.length < 4) {
+                      alert('Porfavor ingrese una contraseña.')
+                  }              
+                  // Sign in with email and pass.
+                  // [START authwithemail]
+                  firebase.auth().signInWithEmailAndPassword(usualogi, usuapass).catch(function(error){
+                      // Handle Errors here.
+                      var errorCode = error.code;
+                      var errorMessage = error.message;
+                      // [START_EXCLUDE]
+                      if (errorCode === 'auth/wrong-password') {
+                          alert('Contraseña incorrecta.');
+                      } else {
+                          alert(errorMessage);
+                      }
+                      console.lo(error);
+                      document.getElementById('signin').disable = false;
+                      // [END_EXCLUDE]
+                  });
+                  // [END authwithemail]
+              }
+              document.getElementById('signin').disabled = true;
+          }
+          
+          /**
+          * Maneja las devoluciones de llamada para registrar el estado de autenticación.
+          *
+          * Este método registra un oyente con firebase.auth().onAuthStateChanged. Esto se llama cuando escucha
+          * el usuario está conectado o fuera, y ahí es donde actualizamos la interfaz de usuario "UI".
+          *
+          * Al acceder, también autenticarse en el Firebase Realtime Database.
+          */
+          function initApp() {
+              
+              // Obtener el usuario con sesión activa.
+              firebase.auth().onAuthStateChanged(function(user){
+                  if (user) {
+                      // El usuario inicia sesión en.
+                      var displayName = user.displayName;
+                      var email = user.email;
+                      var emailVerified = user.emailVerified;
+                      var photoURL = user.photoURL;
+                      var isAnonymous = user.isAnonymous;
+                      var uid = user.uid;
+                      var refreshToken = user.refreshToken;
+                      var providerData = user.providerData;
+                      // [START_EXCLUDE silent]
+                      document.getElementById('quickstart-sign-in-status').textContent = 'Signed in';
+                      document.getElementById('signin').textContent = 'Sign out';         
+                      document.getElementById('quickstart-account-details').textContent = JSON.stringify({
+                          displayName: displayName,
+                          email: email,
+                          emailVerified: emailVerified,
+                          photoURL: photoURL,
+                          isAnonymous: isAnonymous,
+                          uid: uid,
+                          refreshToken: refreshToken,
+                          providerData: providerData
+                      }, null, '  ');
+                  } else {
+                      // Ningún usuario ha iniciado sesión.
+                  }
+              });
+              document.getElementById('signin').addEventListener('click', toggleSignIn, false);
+          }
+          window.onload = function() {
+              initApp();
+          };
+      </script>
+  </head>
+  <body class="body-container">
+    
+      <!-- Inicia container -->
+      <section class="container">
+          <div class="alert alert-warning alert-dismissible" role="alert" id="msj">
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <strong>Warning!</strong> Better check yourself, you're not looking too good.
+          </div>
+          <!-- Inicia login-box -->
+          <section class="login-box">
+              <!-- Inicia sección logo saf -->
+              <section class="row">
+                  <section class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                      <img class="login-img" src="img/AppCitizen.png" width="160px" height="auto">
+                  </section>
+              </section>
+              <!-- Finaliza sección logo saf -->
+              <!-- Inicia sección inputs -->
+              <section class="row">
+                  <section class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                      <form>
+                          
+                          <section class="row">
+                              
+                              <section>
+                                  <input id="usualogi" 
+                                         placeholder="Email*"
+                                         title="Ingrese su nombre de usuario"
+                                         type="email" 
+                                         class="login-inputs">
+                              </section>
+                              
+                              <section>
+                                  <input id="usuapass" 
+                                         placeholder="Contraseña*" 
+                                         title="La contraseña debe tener al menos 6 caracteres" 
+                                         pattern=".{6,}" 
+                                         type="password" 
+                                         class="login-inputs">
+                              </section>
+                              
+                              <section>
+                                  <input id="signin" 
+                                         type="submit" 
+                                         value="Iniciar sesión" 
+                                         class="login-btn-submit btn-success">
+                              </section>
+                          
+                          </section>
+                          
+                      </form>
+                      
+                  </section>
+              </section>
+              <!-- Finaliza sección inputs -->
+              
+              <!-- Inicia sección credenciales externas-->
+              <!--
+
+                <section class="row">
+                  <section class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                      <section class="login-box-fg">
+                          
+                          <section class="row">
+                              <section class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                  <a href="#">
+                                      <img src="img/logo-facebook.png" width="75px" height="auto">
+                                  </a>
+                              </section>                          
+                          </section>
+                          
+                          <section class="row">
+                              <section class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                  <a href="#">
+                                      <img src="img/botonredondogooglemas.png" width="65px" height="auto">
+                                  </a>
+                              </section>
+                          </section>
+                          
+                      </section>
+                  </section>
+              </section>
+
+              -->              
+              <!-- Finaliza seccion credenciales externas -->   
+              <!-- Container where we'll display the user details -->
+              <!-- Container where we'll display the user details -->
+              <div>
+                  Firebase sign-in status: 
+                  <span id="quickstart-sign-in-status">Unknown</span>
+                  <div>Firebase auth <code>currentUser</code> object value:</div>
+                  <pre><code id="quickstart-account-details">null</code></pre>
+              </div>
+          </section>
+          <!-- Finaliza login-box -->
+      </section>
+      <!-- Inicia container -->
+      
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>      
+  </body>
+</html>
