@@ -31,7 +31,7 @@ body a{
 }
 
 .background-colo-saf-secundario{
-    background-color: white;
+    background-color: #FFF;
 }
 
 /* Estilos de barra de navegación */
@@ -95,6 +95,11 @@ body a{
     margin: 12px
 }
 
+.space-nav {
+    width: auto;
+    height: 74px;
+}
+
 .navbar-brand img {
     height: 100%;
 }
@@ -144,4 +149,10 @@ body a{
     width: 460;
     height: auto;
     max-width: 100%;
+}
+
+.map-view {
+    position: absolute;
+    width: 100%;
+    height: 100%;
 }

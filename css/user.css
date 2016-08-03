@@ -6,12 +6,11 @@
     text-align: center;
     align-self: center;
     color: #FFFFFF;
-    margin: 5%;
+    margin-top: 15%;
 }
 .login-box-fg {
     text-align: center;
     align-self: center;
-    margin: 20px;
 }
 .login-inputs{
     border-bottom: 4px solid #FFFFFF;
@@ -20,15 +19,15 @@
     width: 350px;
     height: auto;
     padding: 20px 0;
-    border: 0;
+    border: 0px;
     /* border-bottom: 4px solid #fff; */
     outline: 0;
-    color: #0D47A1!important;
+    color: #424242!important;
     background-color: #FFFFFF!important;
     box-shadow: none;
     -webkit-box-shadow: none;
     border-radius: 0px;
-    margin-bottom: 5px;
+    margin: 5px;
     font: 19px Lato,Helvetica,Arial,sans-serif;
     text-align: center;
 }
@@ -50,10 +49,18 @@
     transition: background-color .2s ease-out,border-color .2s ease-out;  
 }
 
-.register-input{
-    
-}
 .userPic {
     text-align: center;
     align-self: center;
+}
+
+.map {
+    position: absolute;
+    top: 0;
+    bottom: 0;    
+    width: 100%;
+}
+
+.home-row-top {
+    height: 75px;
 }
